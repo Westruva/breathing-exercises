@@ -5,7 +5,7 @@ const SHOWN = 20 // most recent sessions listed
 
 export default function HistoryPage() {
   const [records, setRecords] = useState(loadHistory)
-  const { sessions, totalMinutes } = summarize(records)
+  const { sessions, totalCycles, totalMinutes } = summarize(records)
 
   function handleClear() {
     if (window.confirm('Delete all your session history? This cannot be undone.')) {
@@ -26,6 +26,10 @@ export default function HistoryPage() {
           <span>{sessions === 1 ? 'session' : 'sessions'}</span>
         </div>
         <div>
+          <strong>{totalCycles}</strong>
+          <span>{totalCycles === 1 ? 'cycle' : 'cycles'}</span>
+        </div>
+        <div>
           <strong>{totalMinutes === 0 ? '<1' : totalMinutes}</strong>
           <span>total minutes</span>
         </div>
@@ -36,7 +40,10 @@ export default function HistoryPage() {
           <li key={r.id}>
             <div>
               <strong>{r.exerciseName}</strong>
-              <span>{new Date(r.date).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}</span>
+              <span>
+                {new Date(r.date).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}
+                {r.cycles ? ` · ${r.cycles} ${r.cycles === 1 ? 'cycle' : 'cycles'}` : ''}
+              </span>
             </div>
             <span className="duration">{formatTime(r.seconds)}</span>
           </li>
