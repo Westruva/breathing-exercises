@@ -53,4 +53,8 @@ src/
   App.jsx, main.jsx
 ```
 
+Hosted at :https://breathing-exercises.waynesifiso71.workers.dev/
+
+![Project Screenshot](./public/Screenshot_2026-10-26_20_52_19.png)
+
 Built with React and Vite, in plain JavaScript.
