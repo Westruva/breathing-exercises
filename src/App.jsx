@@ -12,6 +12,8 @@ export default function App() {
 
   return (
     <main className="app">
+      <AboutDropdown />
+
       <h1>Breathe</h1>
 
       <nav className="tabs">
@@ -53,7 +55,6 @@ export default function App() {
 
       {tab === 'history' && <HistoryPage />}
 
-      <AboutDropdown />
     </main>
   )
 }

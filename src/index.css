@@ -241,23 +241,39 @@ body {
   cursor: pointer;
 }
 
+/* Small blue pill at the top left; the text opens in a white card below it */
 .about {
-  margin-top: 32px;
-  padding: 12px 16px;
-  border-radius: 12px;
-  background: white;
+  margin-bottom: 12px;
   text-align: left;
 }
 
 .about summary {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: white;
+  font-size: 0.8rem;
   font-weight: 600;
+  list-style: none; /* hides the default triangle (Firefox/Chrome) */
   cursor: pointer;
 }
 
-.about p {
-  margin: 12px 0 0;
+.about summary::-webkit-details-marker {
+  display: none; /* hides the default triangle (Safari) */
+}
+
+.about-text {
+  margin-top: 8px;
+  padding: 4px 16px 12px;
+  border-radius: 12px;
+  background: white;
+  font-size: 0.9rem;
   line-height: 1.5;
-  color: var(--text);
+}
+
+.about-text p {
+  margin: 8px 0 0;
 }
 
 .cycles {
