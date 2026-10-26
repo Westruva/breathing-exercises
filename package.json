@@ -2,6 +2,7 @@
   "name": "breathing-exercises",
   "private": true,
   "version": "0.1.0",
+  "description": "Guided breathing exercises that work offline",
   "type": "module",
   "scripts": {
     "dev": "vite",
