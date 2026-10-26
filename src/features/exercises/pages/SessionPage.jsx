@@ -36,7 +36,7 @@ export default function SessionPage({ exercise, status, onStatusChange }) {
     // Very short sessions (accidental taps) are not saved
     if (seconds >= MIN_SECONDS) {
       addSession({ exerciseId: exercise.id, exerciseName: exercise.name, seconds })
-      setSavedNote(`Session saved: ${exercise.name}, ${formatTime(seconds)}`)
+      setSavedNote(`${exercise.name}: ${formatTime(seconds)}`)
     }
     resetCycle()
     resetTimer()
