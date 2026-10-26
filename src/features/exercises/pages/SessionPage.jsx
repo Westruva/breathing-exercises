@@ -5,12 +5,12 @@ import { useSessionTimer } from '../../../hooks/useSessionTimer.js'
 import { useStoredState } from '../../../hooks/useStoredState.js'
 import { canKeepAwake, useWakeLock } from '../../../hooks/useWakeLock.js'
 import { canVibrate, stopVibration, vibratePhase } from '../../../lib/vibration.js'
-import { MIN_SECONDS, addSession, formatTime } from '../../history/history.js'
+import { addSession, formatTime } from '../../history/history.js'
 
 // status is 'idle' (not started), 'running' or 'paused'. App owns it so it can lock the picker.
 export default function SessionPage({ exercise, status, onStatusChange }) {
   const running = status === 'running'
-  const { phase, reset: resetCycle } = useBreathingCycle(exercise, running)
+  const { phase, cycles, reset: resetCycle } = useBreathingCycle(exercise, running)
   const { seconds, reset: resetTimer } = useSessionTimer(running)
   // These two settings are remembered on the device
   const [vibrationOn, setVibrationOn] = useStoredState('breathe.vibration', true)
@@ -33,10 +33,12 @@ export default function SessionPage({ exercise, status, onStatusChange }) {
 
   function end() {
     stopVibration()
-    // Very short sessions (accidental taps) are not saved
-    if (seconds >= MIN_SECONDS) {
-      addSession({ exerciseId: exercise.id, exerciseName: exercise.name, seconds })
-      setSavedNote(`${exercise.name}: ${formatTime(seconds)}`)
+    // A session counts once at least one full cycle is done; a half-finished cycle is not counted
+    if (cycles >= 1) {
+      addSession({ exerciseId: exercise.id, exerciseName: exercise.name, seconds, cycles })
+      setSavedNote(`${exercise.name}: ${cycles} ${cycles === 1 ? 'cycle' : 'cycles'}, ${formatTime(seconds)}`)
+    } else if (seconds > 0) {
+      setSavedNote('Not saved: finish at least one full cycle to record a session.')
     }
     resetCycle()
     resetTimer()
@@ -55,6 +57,7 @@ export default function SessionPage({ exercise, status, onStatusChange }) {
       <BreathingCircle phase={phase} running={running} label={label} />
 
       <p className="timer">{formatTime(seconds)}</p>
+      <p className="cycles">Cycles: {cycles}</p>
 
       <div className="controls">
         {status === 'idle' && (

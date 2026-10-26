@@ -259,3 +259,8 @@ body {
   line-height: 1.5;
   color: var(--text);
 }
+
+.cycles {
+  margin: 0 0 12px;
+  color: var(--muted);
+}
