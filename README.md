@@ -47,7 +47,7 @@ src/
   features/
     exercises/            exercise data, breathing circle, session screen
     history/              saved sessions and the History page
-    about/                the "Why I made this app" dropdown
+    about/                the "Why the app was made" dropdown
   hooks/                  timers, wake lock, remembered settings
   lib/                    storage and vibration helpers
   App.jsx, main.jsx

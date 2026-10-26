@@ -3,7 +3,7 @@
 export default function AboutDropdown() {
   return (
     <details className="about">
-      <summary>Why I made this app</summary>
+      <summary>Why the app was made</summary>
       <div className="about-text">
         <p>
           After I quit alcohol, I was forced to find another way to relieve stress. As we all know, it is
