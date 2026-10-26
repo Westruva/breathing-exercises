@@ -50,11 +50,25 @@ export default function SessionPage({ exercise, status, onStatusChange }) {
     onStatusChange('paused')
   }
 
+  function resume() {
+    onStatusChange('running')
+  }
+
+  // Tapping the circle: start when idle, pause when running, resume when paused
+  const toggle = status === 'idle' ? start : running ? pause : resume
+  const toggleLabel = status === 'idle' ? 'Start' : running ? 'Pause' : 'Resume'
+
   const label = phase ? phase.label : status === 'idle' ? 'Ready' : 'Get ready'
 
   return (
     <>
-      <BreathingCircle phase={phase} running={running} label={label} />
+      <BreathingCircle
+        phase={phase}
+        running={running}
+        label={label}
+        onToggle={toggle}
+        actionLabel={toggleLabel}
+      />
 
       <p className="timer">{formatTime(seconds)}</p>
       <p className="cycles">Cycles: {cycles}</p>
@@ -71,7 +85,7 @@ export default function SessionPage({ exercise, status, onStatusChange }) {
           </button>
         )}
         {status === 'paused' && (
-          <button className="primary" onClick={() => onStatusChange('running')}>
+          <button className="primary" onClick={resume}>
             Resume
           </button>
         )}

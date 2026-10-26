@@ -19,7 +19,8 @@ function sizeFor(phase) {
   }
 }
 
-export default function BreathingCircle({ phase, running, label }) {
+// onToggle is called when the circle is tapped (start / pause / resume is decided by the parent)
+export default function BreathingCircle({ phase, running, label, onToggle, actionLabel }) {
   const circleRef = useRef(null)
   // Size the circle had at the moment of pausing (null while running)
   const [frozenScale, setFrozenScale] = useState(null)
@@ -42,14 +43,17 @@ export default function BreathingCircle({ phase, running, label }) {
 
   return (
     <div className="circle-wrap">
-      <div
-        ref={circleRef}
-        className="circle"
-        style={{
-          transform: `scale(${scale})`,
-          transition: `transform ${seconds}s ease-in-out`,
-        }}
-      />
+      {/* The button keeps a fixed size; only the circle inside it scales */}
+      <button type="button" className="circle-button" onClick={onToggle} aria-label={actionLabel}>
+        <div
+          ref={circleRef}
+          className="circle"
+          style={{
+            transform: `scale(${scale})`,
+            transition: `transform ${seconds}s ease-in-out`,
+          }}
+        />
+      </button>
       <p className="circle-label">{label}</p>
     </div>
   )

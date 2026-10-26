@@ -280,3 +280,19 @@ body {
   margin: 0 0 12px;
   color: var(--muted);
 }
+
+/* The tap target: same size as the full-size circle, with no button chrome */
+.circle-button {
+  display: block;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.circle-button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
